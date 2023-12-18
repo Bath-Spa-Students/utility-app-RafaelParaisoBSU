@@ -1,3 +1,5 @@
+import time # Allows us to use time.sleep function to add transitions.
+
 Drinks = [
     {'Code': 'A1', 'Name': '     Water     ', 'Price': 1.00, 'Category': 'Drinks', 'Stock': 5},
     {'Code': 'A2', 'Name': '     Pepsi     ', 'Price': 3.50, 'Category': 'Drinks', 'Stock': 3},
@@ -111,8 +113,6 @@ def process_category(selected_category, Wallet): # Uses a singular function to d
     print("""   -------------------------------------------------------------------------------""") # Breakline
 
     choice = input("\nPlease enter an Item or 'Q' to go Back!: ") # Allows the user to input a code to select an item or go back to choosing a Category.
-
-
     if choice.lower() == 'q': # If the user enters 'q' or 'Q', goes back to selecting a category.
         return None, Wallet # Returns Wallet and item_choice values to be None.
 
@@ -122,6 +122,7 @@ def process_category(selected_category, Wallet): # Uses a singular function to d
             item_choice = item
             break
         elif item['Code'] == choice.upper() and item['Stock'] == 0: # If the item is not in stock, prints the error message.
+            time.sleep(0.5) # time.sleep to add a transition to the code.
             print("Item has run out of stock!")
             break
 
@@ -130,29 +131,38 @@ def process_category(selected_category, Wallet): # Uses a singular function to d
         Wallet += amount_paid # Increases the money in the Wallet (variable from earlier) to the users desired payment.
 
         if Wallet >= item_choice['Price']: # If the users money is more than the payment then:
+            time.sleep(0.5) # time.sleep to add a transition to the code.
             print(f"\n\nDispensing your '{item_choice['Name'].strip()}', Enjoy!\n") # Dispenses the item using an f-string. Since item_choice is now updated, this code can be used.
 
             change = Wallet - item_choice['Price'] # Calculates the change by subtracting the price of the item to your Wallet funds.
             if change > 0: # If your change is higher than 0, then;
+                time.sleep(0.5) # time.sleep to add a transition to the code.
                 print(f"\nYour change is: ${change:.2f}!\n") # This prints. ".2f" which stands for 2 floats is used to print the next 2 decimals as well.
 
             item_choice['Stock'] -= 1
+            time.sleep(0.5) # time.sleep to add a transition to the code.
             print(f"\n'{item_choice['Name'].strip()}' Stock has decreased by 1!\n")  # A print statement that tells the user the item stock has been updated.
 
             Wallet = 0.0 # Resets your total balance in your Wallet.
 
             suggested_items = [item['Name'].strip() for item in selected_category if item['Stock'] > 0 and item['Code'] != item_choice['Code']]  # Suggests items on your selected category, ['Stock']>0 is used to make sure the code doesn't suggest an item with no stock and != item_choice is to make sure it does not include your selected item as a suggestion.
             if suggested_items:
+                time.sleep(0.5) # time.sleep to add a transition to the code.
                 print(f"\nPlease consider buying {' & '.join(suggested_items)} as well! See you next time!\n") # Uses an F-string and .join to suggest the remaining items in the category.
             else:
+                time.sleep(0.5) # time.sleep to add a transition to the code.
                 print("No more items available in this category. See you next time!\n")  # Prints if there is no more stock of every item in a category.
         else:
+            time.sleep(0.5) # time.sleep to add a transition to the code.
             print("\nInsufficient Funds! Please insert the right amount of money!") # If the user inputs insufficient funds, this prints.   
 
     else:
+        time.sleep(0.5) # time.sleep to add a transition to the code.
         print("\nError! Invalid Code or Out of Stock! Please Try Again!") # If the user inputs insufficient funds, this prints.   
 
+    time.sleep(0.5) # time.sleep to add a transition to the code.
     print ("--------------------------------------------------------------------------------------\n") # Breakline
+    
     return item_choice, Wallet # Returns these 2 variables into their original values, being "None" and "0.00" respectively.
 
 Wallet = 0.0  # Your Wallet, will be used for the payment process later.
@@ -174,13 +184,18 @@ while True: # Uses a while loop to loop throughout the entire code until the use
        ██╔══╝░░██║░░██║██║░░██║██║░░██║  ██║░░██╗██║░░██║██║░░░██║██╔══██╗░░░██║░░░
        ██║░░░░░╚█████╔╝╚█████╔╝██████╔╝  ╚█████╔╝╚█████╔╝╚██████╔╝██║░░██║░░░██║░░░
        ╚═╝░░░░░░╚════╝░░╚════╝░╚═════╝░  ░╚════╝░░╚════╝░░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░""")
+    
+    time.sleep (0.5) # time.sleep to add a transition to the code.
+
     standchoice = input("\nWould you like to use the 'Vending Machine' or 'Food Stand'? (Type 'Q' to Quit): ").lower() # Asks the user to select between the Vending Machine or Food Stand using input.
 
     if standchoice == "vending machine": # If the user selects Vending machine then the procedure continues:
         print(VendingMachine) # Prints the Vending Machine variable, displaying the menu.
+
         while True: # Uses another while loop to loop through the code until the user wants to select a different food trip or exits.
             category_choice = input("\nSelect a Category (1-Drinks, 2-Chips, 3-Candy) or press 'Q' to Exit!: ") # Allows the user to select between Drinks, Chips and Candy, or else;
             if category_choice.lower() == 'q': # Stop the code and go back to selecting between Vending Machine and Food Stand.
+                time.sleep (0.5) # time.sleep to add a transition to the code.
                 print("""\n
          ████████╗██╗░░██╗░█████╗░███╗░░██╗██╗░░██╗  ██╗░░░██╗░█████╗░██╗░░░██╗██╗
          ╚══██╔══╝██║░░██║██╔══██╗████╗░██║██║░██╔╝  ╚██╗░██╔╝██╔══██╗██║░░░██║██║
@@ -213,9 +228,11 @@ while True: # Uses a while loop to loop throughout the entire code until the use
 
     elif standchoice == "food stand": # If the user selects Food Stand then the procedure continues:
         print(FoodStand) # Prints the Food Stand Variable, Displaying the Menu.
+
         while True: # Uses another while loop to loop through the code until the user selects a different food trip or exits.
             category_choice = input("\nSelect a Category (1-Sandwiches, 2-Meals) or press 'Q' to Exit!: ") # Allows the user to select between Sandwiches or Meals.
             if category_choice.lower() == 'q': # If they input Q, they can exit the program.
+                time.sleep (0.5) # time.sleep to add a transition to the code.
                 print("""\n
          ████████╗██╗░░██╗░█████╗░███╗░░██╗██╗░░██╗  ██╗░░░██╗░█████╗░██╗░░░██╗██╗
          ╚══██╔══╝██║░░██║██╔══██╗████╗░██║██║░██╔╝  ╚██╗░██╔╝██╔══██╗██║░░░██║██║
@@ -231,6 +248,7 @@ while True: # Uses a while loop to loop throughout the entire code until the use
             if category_choice in ['1', '2']: # Allows the user to select 1 for Sandwiches, 2 for Meals.
                 category_choice = int(category_choice) # Forces the user to input an Integer.
             else:
+                time.sleep (0.5) # time.sleep to add a transition to the code.
                 print("Invalid Category Code. Please Try Again!") # Else, this prints.
                 continue 
 
@@ -244,8 +262,10 @@ while True: # Uses a while loop to loop throughout the entire code until the use
             item_choice, Wallet = process_category(selected_category, Wallet)  # Returns the values of item_choice and Wallet to their original values.
 
     elif standchoice == 'q':
+        time.sleep (0.5) # time.sleep to add a transition to the code.
         print("\nThank you for using Rafael's Food Court! Goodbye!\n") # Exits the program if the user types Q.
         break 
 
     else:
+        time.sleep (0.5) # time.sleep to add a transition to the code.
         print("Invalid choice. Please enter 'Vending Machine' or 'Food Stand' or 'Q' to Quit.") # Error code when the user types something else.
